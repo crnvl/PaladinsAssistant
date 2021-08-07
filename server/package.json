@@ -1,0 +1,16 @@
+{
+  "name": "paladins-assistant-server",
+  "version": "1.0.0",
+  "description": "Server for Paladins Assistent",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "author": "angelsflyinhell",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "https": "^1.0.0",
+    "paladins.js": "^2.2.2"
+  }
+}
