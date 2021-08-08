@@ -1,61 +1,64 @@
 import './App.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Placeholder } from './components/userStatsPlaceholder';
 import { MatchUser } from './components/userStats';
-const http = require('http')
-const dataBlock = [];
 
 function App() {
 
-  startSystem()
+  const [response, setResponse] = useState();
 
-  console.log(dataBlock);
+  useEffect(() => {
+    const interval = setInterval(() => {
+        fetch(`http://localhost:5000/api/games/paladins/user/jofroliftsTTV/status`)
+            .then(r => r.json()).then(setResponse);
+    }, 10000)
+    return () => clearInterval(interval);
+  }, [])
+
+  console.log(response);
+  const team1 = [];
+  const team2 = [];
+
+  if(response === undefined || response.status === 'In Lobby' || response.status === 'God Selection') {
+      for (let i = 0; i < 5; i++) {
+        team1.push(<Placeholder></Placeholder>)
+        team2.push(<Placeholder></Placeholder>)
+      }
+  }else {
+    for (let x = 0; x < 2; x++) {
+      for (let i = 0; i < response.players.length; i++) {
+        if(x === 0) {
+          if(response.players[i].team === 1) {
+            team1.push(
+              <MatchUser name={response.players[i].name} level={response.players[i].level} champion={response.players[i].champion} championLevel={response.players[i].championLevel} winrate={response.players[i].wins} ranking={response.players[i].ranking}></MatchUser>
+            )
+          }
+        }else if(x === 1) {
+          if(response.players[i].team === 2) {
+            team2.push(
+              <MatchUser name={response.players[i].name} level={response.players[i].level} champion={response.players[i].champion} championLevel={response.players[i].championLevel} winrate={response.players[i].wins} ranking={response.players[i].ranking}></MatchUser>
+            )
+          }
+        }
+      }
+    }
+  }
+
+
   return (
   <>
     <div className="container">
         <div className="row lg">
           <h2>Team 1</h2>
-            <MatchUser name="someone" championUrl="https://raw.githubusercontent.com/PaladinsDev/Assets/master/champions/Drogoz/drogoz.jpg" level="243" champion="Drogoz" championLevel="34" winrate="35.53%" ranking="Grandmaster"></MatchUser>
-            <Placeholder></Placeholder>
-            <Placeholder></Placeholder>
-            <Placeholder></Placeholder>
-            <Placeholder></Placeholder>
+            {team1}
         </div>
         <div class="row lg">
           <h2>Team 2</h2>
-            <Placeholder></Placeholder>
-            <Placeholder></Placeholder>
-            <Placeholder></Placeholder>
-            <Placeholder></Placeholder>
-            <Placeholder></Placeholder>
+            {team2}
         </div>
     </div>
     </>
   );
-}
-
-function startSystem() {
-  setInterval(requestMatchData('z1unknown'), 5000); //time is in ms
-}
-
-function requestMatchData(name) {
-  http.get(`http://localhost:5000/api/games/paladins/user/${name}/status`, (resp) => {
-  let data = '';
-
-  // A chunk of data has been received.
-  resp.on('data', (chunk) => {
-    data += chunk;
-  });
-
-  // The whole response has been received. Print out the result.
-  resp.on('end', () => {
-    dataBlock.push(JSON.parse(data).explanation)
-    console.log(data)
-  });
-
-}).on("error", (err) => {
-  console.log("Error: " + err.message);
-});
 }
 
 export default App;
