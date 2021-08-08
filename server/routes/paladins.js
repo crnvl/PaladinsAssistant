@@ -12,13 +12,9 @@ let api = new paladinsJS.API({
 const paladinsRouter = function (app) {
     app.get('/api/games/paladins/user/:username/status', async (req, res) => {
 
-        const id = await api.getPlayerIdByName(req.params.username).then((response) => {
-            return response
-        });
+        const id = await api.getPlayerIdByName(req.params.username);
 
-        const stats = await api.getPlayerStatus(id[0].player_id).then((response) => {
-            return response
-        });
+        const stats = await api.getPlayerStatus(id[0].player_id);
 
         if (stats.status_string != "In Game") {
             res.json({
@@ -36,9 +32,7 @@ const paladinsRouter = function (app) {
                 for (let i = 0; i < response.length; i++) {
                     var player = "";
                     try {
-                        player = await api.getPlayer(response[i].playerId).then((response) => {
-                            return response;
-                        })
+                        player = await api.getPlayer(response[i].playerId);
                     } catch (error) {
                         
                     }
