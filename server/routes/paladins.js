@@ -3,6 +3,7 @@ const {
 } = require('express');
 const paladinsJS = require('paladins.js');
 const credentials = require('../credentials.json');
+const fs = require('fs');
 
 let api = new paladinsJS.API({
     devId: credentials.developerId,
@@ -11,8 +12,15 @@ let api = new paladinsJS.API({
 
 const paladinsRouter = function (app) {
     app.get('/api/games/paladins/user/:username/status', async (req, res) => {
-
         const id = await api.getPlayerIdByName(req.params.username);
+
+        if(id[0].player_id === undefined) {
+            res.json({
+                error: "user doesn't exist",
+                errorCode: 2,
+            })
+            return;
+        }
 
         const stats = await api.getPlayerStatus(id[0].player_id);
 
@@ -25,28 +33,33 @@ const paladinsRouter = function (app) {
             return;
         }
 
+
         api.getActiveMatchDetails(stats.Match)
             .then(async (response) => {
                 const players = [];
-
+                
                 for (let i = 0; i < response.length; i++) {
                     var player = "";
                     try {
                         player = await api.getPlayer(response[i].playerId);
                     } catch (error) {
-                        
-                    }
 
+                    }
+                    
+
+                    const championInfo = await api.getChampionCards(response[i].ChampionId);
                     players.push({
                         "name": response[i].playerName,
                         "level": response[i].Account_Level,
                         "id": response[i].playerId,
                         "champion": response[i].ChampionName,
                         "championLevel": response[i].ChampionLevel,
+                        "championSkin": response[i].Skin,
                         "team": response[i].taskForce,
                         "ranking": response[i].Tier,
                         "wins": player.Wins,
-                        "losses": player.Losses
+                        "losses": player.Losses,
+                        "icon": championInfo[0].championIcon_URL
                     })
                 }
 
@@ -57,6 +70,10 @@ const paladinsRouter = function (app) {
                     players
                 })
             })
+    })
+
+    app.get('/api/testing', async (req, res) => {
+        res.sendStatus(200);
     })
 }
 
