@@ -7,9 +7,15 @@ export class MatchUser extends React.Component {
         ranking.push(<p className="card-text">Ranking <b>{this.props.ranking}</b></p>);
 
       const img = [];
-      if(this.props.championUrl.toString().includes('shalin'))
+      if(this.props.championUrl === undefined) {
+
+      }
+      if(this.props.championUrl !== null && this.props.championUrl.toString().includes('shalin'))
         img.push(<img src="./assets/champions/unknown.png"
           className="card-img-top" alt="Couldn't load"></img>)
+      else if(this.props.championUrl === null)
+        img.push(<img src="./assets/champions/unknown.png"
+        className="card-img-top" alt="Couldn't load"></img>)
       else 
         img.push(<img src={this.props.championUrl}
         className="card-img-top" alt="Couldn't load"></img>)

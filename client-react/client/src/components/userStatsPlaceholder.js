@@ -5,7 +5,7 @@ export class Placeholder extends React.Component {
     render() {
         const html = `<div class="col-md">
                         <div class="card" style="width: fit-content;">
-                            <img src="./assets/champions/unknown.png" class="card-img-top" style="height:238; width: 100%;">
+                            <img src="./assets/champions/unknown.jpg" class="card-img-top" style="height:238; width: 100%;">
                                 <div class="card-body">
                                     <h5 class="card-title placeholder-glow">
                                         <span class="placeholder col-6"></span>
