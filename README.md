@@ -46,7 +46,10 @@
   </p>
 </p>
 
-
+### Special Thanks to
+* [C0RR1T](https://github.com/C0RR1T)
+* [Nilstrieb](https://github.com/Nilstrieb)<br>
+for helping me with this project :)
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
