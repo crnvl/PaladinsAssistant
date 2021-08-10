@@ -100,8 +100,7 @@ function App() {
 
     winrate = (responseSelf.wins / (responseSelf.wins + responseSelf.losses) ) * 100;
     winrate = `${winrate.toFixed(2)}%`;
-
-    selfUser.push(<MainMatchUser avatar={responseSelf.avatar} name={responseSelf.name} title={responseSelf.title} level={responseSelf.level} winrate={winrate} playtime={responseSelf.playtime} region={responseSelf.region}></MainMatchUser>)
+    selfUser.push(<MainMatchUser avatar={responseSelf.avatar} name={responseSelf.name} title={responseSelf.title} level={responseSelf.level} winrate={winrate} playtime={responseSelf.playtime} region={responseSelf.region} status={response}></MainMatchUser>)
   }
 
   return (
