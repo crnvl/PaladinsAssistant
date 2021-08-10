@@ -4,9 +4,13 @@ var https = require('https')
 
 const app = express();
 
+const productionDomain = 'https://4c3711.xyz';
+const testingDomain = 'http://localhost:3000';
+const domain = productionDomain;
+
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://4c3711.xyz');
+    res.setHeader('Access-Control-Allow-Origin', domain);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', '*');
     next();

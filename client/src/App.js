@@ -5,6 +5,10 @@ import { MatchUser } from './components/userStats';
 import { ranks } from './ranks';
 import { MainMatchUser } from './components/mainUserCard';
 
+const productionDomain = 'https://api.4c3711.xyz';
+const demoDomain = 'http://localhost:9000';
+const domain = productionDomain;
+
 function App() {
 
   const [response, setResponse] = useState();
@@ -16,7 +20,7 @@ function App() {
         if(username === '')
           return;
 
-        fetch(`https://api.4c3711.xyz/api/games/paladins/user/${username}/status`)
+        fetch(`${domain}/api/games/paladins/user/${username}/status`)
             .then(r => r.json()).then(setResponse);
     }, 20000)
     return () => clearInterval(interval);
@@ -31,7 +35,7 @@ function App() {
       if(username === '')
         return;
 
-        fetch(`https://api.4c3711.xyz/api/games/paladins/user/${username}`)
+        fetch(`${domain}/api/games/paladins/user/${username}`)
             .then(r => r.json()).then(setResponseSelf);
     }, 120000)
     return () => clearInterval(interval);
@@ -100,7 +104,7 @@ function App() {
 
     winrate = (responseSelf.wins / (responseSelf.wins + responseSelf.losses) ) * 100;
     winrate = `${winrate.toFixed(2)}%`;
-    selfUser.push(<MainMatchUser avatar={responseSelf.avatar} name={responseSelf.name} title={responseSelf.title} level={responseSelf.level} winrate={winrate} playtime={responseSelf.playtime} region={responseSelf.region} status={response}></MainMatchUser>)
+    selfUser.push(<MainMatchUser avatar={responseSelf.avatar} name={responseSelf.name} title={responseSelf.title} level={responseSelf.level} winrate={winrate} playtime={responseSelf.playtime} region={responseSelf.region} status={response.status}></MainMatchUser>)
   }
 
   return (
