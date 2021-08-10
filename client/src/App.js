@@ -16,7 +16,7 @@ function App() {
         if(username === '')
           return;
 
-        fetch(`http://localhost:5000/api/games/paladins/user/${username}/status`)
+        fetch(`http://4c3711.xyz:9000/api/games/paladins/user/${username}/status`)
             .then(r => r.json()).then(setResponse);
     }, 20000)
     return () => clearInterval(interval);
@@ -31,7 +31,7 @@ function App() {
       if(username === '')
         return;
 
-        fetch(`http://localhost:5000/api/games/paladins/user/${username}`)
+        fetch(`http://4c3711.xyz:9000/api/games/paladins/user/${username}`)
             .then(r => r.json()).then(setResponseSelf);
     }, 120000)
     return () => clearInterval(interval);

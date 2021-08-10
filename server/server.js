@@ -15,6 +15,6 @@ app.use(function (req, res, next) {
 require('./routes/system.js')(app);
 require('./routes/paladins.js')(app);
 
-app.listen(5000, function () {
+app.listen(9000, function () {
     console.log(`[PaladinsAssistant Server] Server is now ready!`)
 })
