@@ -80,7 +80,7 @@ for helping me with this project :)
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 Easily get info about you & your matches on the fly while enjoying a session of Paladins.
-[![Paladins Assistant][product-screenshot]](https://4c3711.xyz/paladins)
+[![Paladins Assistant][product-screenshot]]()
 
 ### Built With
 
